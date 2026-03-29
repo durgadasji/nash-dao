@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* DAO / governance theme: dark slate with electric indigo accent */
+    --background: 222 20% 8%;
+    --foreground: 210 15% 88%;
+
+    --card: 222 18% 11%;
+    --card-foreground: 210 15% 88%;
+
+    --popover: 222 18% 11%;
+    --popover-foreground: 210 15% 88%;
+
+    /* Electric indigo — primary accent */
+    --primary: 248 85% 68%;
+    --primary-foreground: 222 20% 8%;
+
+    --secondary: 222 15% 16%;
+    --secondary-foreground: 210 12% 70%;
+
+    --muted: 222 14% 14%;
+    --muted-foreground: 215 10% 48%;
+
+    --accent: 248 60% 20%;
+    --accent-foreground: 248 85% 80%;
+
+    /* Status colors */
+    --destructive: 0 72% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 222 14% 18%;
+    --input: 222 14% 16%;
+    --ring: 248 85% 68%;
+
+    --radius: 0.5rem;
+
+    /* Custom tokens */
+    --color-whale: 248 85% 68%;       /* indigo */
+    --color-retail: 172 66% 50%;       /* teal-green */
+    --color-warning: 38 92% 55%;       /* amber */
+    --color-critical: 355 75% 60%;     /* red */
+    --color-success: 142 60% 48%;      /* green */
+    --color-neutral: 215 10% 48%;      /* muted */
+  }
+
+  /* No light mode for this tool — data viz demands dark */
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    height: 100dvh;
+  }
+
+  html {
+    height: 100dvh;
+  }
+
+  #root {
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .font-mono-data {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  .equilibrium-badge {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .payoff-cell {
+    @apply font-mono-data text-sm px-3 py-2 rounded text-center;
+  }
+
+  .glow-indigo {
+    box-shadow: 0 0 20px hsl(248 85% 68% / 0.15), 0 0 40px hsl(248 85% 68% / 0.08);
+  }
+
+  .glow-teal {
+    box-shadow: 0 0 20px hsl(172 66% 50% / 0.15), 0 0 40px hsl(172 66% 50% / 0.08);
+  }
+
+  .slider-whale [data-slot="slider-thumb"] {
+    background: hsl(var(--color-whale));
+    border-color: hsl(var(--color-whale));
+  }
+
+  .slider-retail [data-slot="slider-thumb"] {
+    background: hsl(var(--color-retail));
+    border-color: hsl(var(--color-retail));
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(222 18% 11%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(222 14% 22%);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(248 40% 40%);
+}
+
+/* Animated gradient border on active equilibrium cards */
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.nash-active {
+  animation: borderPulse 2s ease-in-out infinite;
+}
+
+/* Payoff matrix grid lines */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: hsl(222 14% 18%);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.matrix-cell {
+  background: hsl(222 18% 11%);
+  padding: 10px 12px;
+}
+
+/* Strategy arrow animations */
+@keyframes flowRight {
+  from { transform: translateX(-4px); opacity: 0.6; }
+  to   { transform: translateX(4px); opacity: 1; }
+}
+
+.strategy-arrow {
+  animation: flowRight 1.2s ease-in-out infinite alternate;
+}
